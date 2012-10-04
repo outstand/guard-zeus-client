@@ -3,6 +3,16 @@ require 'spec_helper'
 describe Guard::ZeusClient::Runner do
   subject(:runner) { described_class.new }
 
+  describe '#run_all' do
+    context 'with rspec' do
+      it 'should run all specs in the spec dir' do
+        runner.should_receive(:run).with(['spec'], anything)
+
+        runner.run_all
+      end
+    end
+  end
+
   describe 'notifications' do
     context 'when the zeus command fails' do
       before do

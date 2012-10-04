@@ -76,9 +76,9 @@ module Guard
       end
 
       def test_dirs
-        if File.exists?(ROOT_PATH + "/spec/spec_helper.rb")
+        if File.exists?("spec/spec_helper.rb")
           ['spec']
-        elsif File.exist?(ROOT_PATH + "/test/minitest_helper.rb")
+        elsif File.exist?("test/minitest_helper.rb")
           minitest_dirs
         else
           Dir['test/**/*_test.rb'] + Dir['test/**/test_*.rb']
