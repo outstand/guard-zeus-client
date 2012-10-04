@@ -34,11 +34,23 @@ module Guard
       def run_via_shell(paths, options)
         success = system(zeus_command(paths, options))
 
-        if @options[:notification] && !success && zeus_command_exited_with_a_failure?
-          Notifier.notify("Failed", :title => "Zeus results", :image => :failed, :priority => 2)
-        end
+        notify(success)
 
         success
+      end
+
+      def notify(success)
+        return unless @options[:notification]
+
+        message = 'Failed'
+        type = :failed
+
+        if success
+          message = 'Succeeded'
+          type = :success
+        end
+
+        Notifier.notify(message, type: type, image: type, title: 'ZeusClient Spec Results', priority: 2)
       end
 
       def zeus_arguments(paths, options)
@@ -61,10 +73,6 @@ module Guard
 
       def zeus_subcommand
         @options[:zeus_subcommand] || 'test'
-      end
-
-      def zeus_command_exited_with_a_failure?
-        $?.exitstatus != 0
       end
 
       def test_dirs

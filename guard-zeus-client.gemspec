@@ -19,4 +19,7 @@ Gem::Specification.new do |gem|
 
   gem.add_dependency 'guard', '>= 1.1'
   gem.add_dependency 'zeus'
+
+  gem.add_development_dependency 'rspec', '>= 2.11'
+  gem.add_development_dependency 'guard-rspec'
 end
